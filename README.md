@@ -10,5 +10,6 @@ Bauble attempts to be a functional replacement for RocketDock. There are many ar
 Bauble does not support RocketDock themes, but does provide a theming interface of its own. There are currently two themes:
 
 ### Crystal Theme
-
+![Crystal Theme](https://raw.githubusercontent.com/cyberknet/Bauble/master/docs/bauble%20crystal%20screenshot.png)
 ### Crystal 3D Theme
+![Crystal 3D Theme](https://raw.githubusercontent.com/cyberknet/Bauble/master/docs/bauble%20crystal3D%20screenshot.png)
