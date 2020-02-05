@@ -1,0 +1,36 @@
+﻿<Window x:Class="Bauble.IconWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Bauble" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="Width" Opacity="1"
+    Background="Transparent" AllowsTransparency="True" MouseMove="Window_MouseMove" MaxHeight="Infinity" 
+    UseLayoutRounding="True" RenderOptions.BitmapScalingMode="HighQuality"
+    Topmost="True" MouseLeave="Window_MouseLeave" MouseEnter="Window_MouseEnter" Icon="/Bauble;component/Images/Bauble.ico" Loaded="Window_Loaded">
+    <StackPanel Orientation="Vertical">
+        <Canvas x:Name="IconTextCanvas" Visibility="Collapsed">
+            <TextBlock Foreground="White" FontSize="14" 
+                    x:Name="IconTextBlock" Padding="5" >
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="4" Color="Black" Direction="-446" ShadowDepth="0"/>
+            </TextBlock.Effect>
+            <Bold>Bauble Text</Bold>
+            </TextBlock>
+        </Canvas>
+        <StackPanel x:Name="IconStack" Orientation="Horizontal">
+            <Image x:Name="LeftCap" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom"/>
+            <Grid x:Name="DisplayGrid" Loaded="DisplayGrid_Loaded" AllowDrop="True" Drop="DisplayGrid_Drop" SizeChanged="DisplayGrid_SizeChanged" MouseLeave="DisplayGrid_MouseLeave">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ContextMenu>
+                    <ContextMenu Name="DockContext">
+                        <MenuItem x:Name="ConfigureMenuItem" Header="Configure" MenuItem.Click="ConfigureMenuItem_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="ExitMenuItem" Header="Exit" MenuItem.Click="ExitMenuItem_Click"  />
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
+            <Image x:Name="Middle" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Stretch="None"/>
+            <Image x:Name="RightCap" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

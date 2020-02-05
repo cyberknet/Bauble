@@ -1,0 +1,8 @@
+The following people have contributed to Bauble in the way indicated. 
+By contributing to Bauble, these people have agreed to release their work under a dual GNU GPL v2/v3 license.
+
+Scott Blomfield <s.blomfield@cox.net> - (cyberknet) Project originator and initial codebase; Project proxy.
+Paul Patarinski <paulpatarinski@gmail.com> - (pvpatarinski) Developer
+
+CREDIT FORMAT:
+Your Name <your email> - (codeplex username) Contribution description; project role

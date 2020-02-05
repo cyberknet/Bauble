@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Theme>
+  <Name>Debugger</Name>
+  <Preview></Preview>
+  <AutoHideAdjustment>2.0</AutoHideAdjustment>
+  <VerticalAlignment>Bottom</VerticalAlignment>
+  
+  <images>
+    <LeftCap>LeftCap.png</LeftCap>
+    <Middle>Middle.png</Middle>
+    <RightCap>RightCap.png</RightCap>
+    <Separator>Separator.png</Separator>
+    <Configure>Configure.png</Configure>
+  </images>
+  
+  <Background>
+    <Color>#0000FF00</Color>
+    <Image></Image>
+  </Background>
+
+  <Icon>
+    <MinimumSize>48</MinimumSize>
+    <MaximumSize>96</MaximumSize>
+    <BackgroundImage></BackgroundImage>
+  </Icon>
+</Theme>

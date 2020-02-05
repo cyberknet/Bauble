@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Theme>
+  <Name>Crystal 3D</Name>
+  <Preview></Preview>
+  <AutoHideAdjustment>55.0</AutoHideAdjustment>
+  <VerticalAlignment>Bottom</VerticalAlignment>
+  <Margin>0 0 0 15</Margin>
+  
+  <images>
+    <LeftCap>LeftCap.png</LeftCap>
+    <Middle>Middle.png</Middle>
+    <RightCap>RightCap.png</RightCap>
+    <Separator>Separator.png</Separator>
+    <Configure>Configure.png</Configure>
+  </images>
+  
+  <Background>
+    <Color>#00000000</Color>
+    <Image></Image>
+  </Background>
+  
+  <Icon>  
+    <MinimumSize>48</MinimumSize>
+    <MaximumSize>96</MaximumSize>
+    <BackgroundImage></BackgroundImage>
+  </Icon>
+</Theme>

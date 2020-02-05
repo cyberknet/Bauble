@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Bauble.Buttons.Shortcut"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Viewbox>
+        <Button BorderThickness="0" x:Name="ShortcutButton" Width="100" Height="100" Background="Green">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <StackPanel Width="{TemplateBinding Width}" Height="{TemplateBinding Width}" x:Name="panel">
+                                    <ContentPresenter Width="{TemplateBinding Width}" Height="{TemplateBinding Width}" />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Image x:Name="ShortcutImage" Canvas.Left="0" Canvas.Top="0" Width="100" Height="100">
+            </Image>
+        </Button>
+    </Viewbox>
+</UserControl>

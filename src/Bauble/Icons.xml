@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/*  This file is part of Bauble - http://bauble.codeplex.com
+ *  Copyright (C) 2010-2012 Scott Blomfield
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ *
+ *  Additional portions Copyright (C) (year) by (contributor)
+ */
+ -->
+<!-- 
+  This is a sample file to make debugging easier. 
+  Someone should think about what file to distribute to end users... or if an XML file is even the right way to go.
+  
+  UPDATED 7/10/2012 by CyberKnet
+  Changed icons to apps that everyone should have installed. Added some icons that I found in google images.
+  No idea as to their current copyright status. We should source some images that are copyright-free, public 
+  domain, or otherwise known to be legally usable.
+  
+  Icons to be replaced:
+  Calculator.png
+  Notepad.png
+  Microphone.png
+  Wordpad.png
+  CommandPrompt.png -> From rocketdock.com, need to get permission to redistribute
+  InternetExplorer.png
+  
+  Other Icons:
+  Chrome.png -> From rocketdock.com, need to get permission to redistribute
+  mIRC.png -> From rocketdock.com, need to get permission to redistribute
+  Outlook.png -> From rocketdock.com, need to get permission to redistribute
+  PaintShopPro.png -> From rocketdock.com, need to get permission to redistribute
+  UltraEdit.png -> From rocketdock.com, need to get permission to redistribute
+-->
+<Icons>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/WordPad.png</Image>
+    <Text>WordPad</Text>
+    <Executable>%ProgramFiles%\Windows NT\Accessories\wordpad.exe</Executable>
+    <WorkingDirectory></WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/Calculator.png</Image>
+    <Text>Calculator</Text>
+    <Executable>%windir%\system32\calc.exe</Executable>
+    <WorkingDirectory>%windir%\system32\</WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Separator"/>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/Microphone.png</Image>
+    <Text>Sound Recorder</Text>
+    <Executable>%SystemRoot%\system32\SoundRecorder.exe</Executable>
+    <WorkingDirectory>%SystemRoot%\system32\</WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/Notepad.png</Image>
+    <Text>Notepad</Text>
+    <Executable>%windir%\system32\notepad.exe</Executable>
+    <WorkingDirectory>%HOMEDRIVE%%HOMEPATH%</WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/CommandPrompt.png</Image>
+    <Text>Command Prompt</Text>
+    <Executable>%windir%\system32\cmd.exe</Executable>
+    <WorkingDirectory>%HOMEDRIVE%%HOMEPATH%</WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Separator"/>
+  <Icon type="Bauble.Buttons.Shortcut">
+    <Image>icons/InternetExplorer.png</Image>
+    <Text>Internet Explorer</Text>
+    <Executable>"C:\Program Files (x86)\Internet Explorer\iexplore.exe"</Executable>
+    <WorkingDirectory>%HOMEDRIVE%%HOMEPATH%</WorkingDirectory>
+    <Arguments></Arguments>
+  </Icon>
+  <Icon type="Bauble.Buttons.Clock">
+    <Text>Clock</Text>
+  </Icon>
+  <Icon type="Bauble.Buttons.Configure">
+    <Text>Configure</Text>
+  </Icon>
+</Icons>
