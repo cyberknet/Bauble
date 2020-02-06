@@ -159,6 +159,18 @@ namespace Bauble.Buttons
                         new XElement("Arguments", _arguments));
         }
 
+        Object IBaubleButton.ToConfigurationObject()
+        {
+            return new { 
+                Type = this.GetType().FullName,
+                Image = _imageFilePath,
+                Text = Text,
+                Executable = ExecutablePath,
+                WorkingDirectory = _workingDirectory,
+                Arguments = _arguments
+            };
+        }
+
         void IBaubleButton.LoadFromXml(string Xml)
         {
             XElement element = XElement.Parse(Xml);
@@ -168,6 +180,16 @@ namespace Bauble.Buttons
             ExecutablePath = element.Element("Executable").Value;
             _workingDirectory = element.Element("WorkingDirectory").Value;
             _arguments = element.Element("Arguments").Value;
+        }
+
+        void IBaubleButton.LoadFromJson(System.Text.Json.JsonElement json)
+        {
+            _imageFilePath = json.GetProperty("image").GetString();
+            Text = json.GetProperty("text").GetString();
+            ExecutablePath = json.GetProperty("executable").GetString();
+            _workingDirectory = json.GetProperty("workingDirectory").GetString();
+            _arguments = json.GetProperty("arguments").GetString();
+
         }
 
         #endregion Persistence

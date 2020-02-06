@@ -1,0 +1,66 @@
+{
+  "icons": [
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/WordPad.png",
+      "text": "WordPad",
+      "executable": "%ProgramFiles%\\Windows NT\\Accessories\\wordpad.exe",
+      "workingDirectory": "",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/Calculator.png",
+      "text": "Calculator",
+      "executable": "%windir%\\system32\\calc.exe",
+      "workingDirectory": "%SystemRoot%\\system32\\",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Separator"
+    },
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/Microphone.png",
+      "text": "Sound Recorder",
+      "executable": "%SystemRoot%\\system32\\SoundRecorder.exe",
+      "workingDirectory": "%SystemRoot%\\system32\\",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/Notepad.png",
+      "text": "Notepad",
+      "executable": "%SystemRoot%\\system32\\Notepad.exe",
+      "workingDirectory": "%HOMEDIR%%HOMEPATH%",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/CommandPrompt.png",
+      "text": "Command Prompt",
+      "executable": "%SystemRoot%\\system32\\cmd.exe",
+      "workingDirectory": "%HOMEDIR%%HOMEPATH%",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Separator"
+    },
+    {
+      "type": "Bauble.Buttons.Shortcut",
+      "image": "icons/InternetExplorer.png",
+      "text": "Internet Explorer",
+      "executable": "%ProgramFiles(x86)%\\Internet Explorer\\iexplore.exe",
+      "workingDirectory": "%SystemRoot%\\system32\\",
+      "arguments": ""
+    },
+    {
+      "type": "Bauble.Buttons.Clock",
+      "text": "Clock"
+    },
+    {
+      "type": "Bauble.Buttons.Configure",
+      "text": "Configure"
+    }
+  ]
+}

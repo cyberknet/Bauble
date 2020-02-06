@@ -113,10 +113,24 @@ namespace Bauble.Buttons
                     new XElement("Text", Text));
         }
 
+        Object IBaubleButton.ToConfigurationObject()
+        {
+            return new
+            {
+                Type = this.GetType().FullName,
+                Text = Text
+            };
+        }
+
         void IBaubleButton.LoadFromXml(string Xml)
         {
             XElement element = XElement.Parse(Xml);
             Text = element.Element("Text").Value;
+        }
+
+        void IBaubleButton.LoadFromJson(System.Text.Json.JsonElement json)
+        {
+            Text = json.GetProperty("text").GetString();
         }
 
         #endregion Persistence

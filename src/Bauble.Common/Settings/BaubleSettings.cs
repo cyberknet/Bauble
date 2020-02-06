@@ -30,6 +30,8 @@ using Bauble.Common.Animation;
 using Bauble.Common.Events;
 using System.Reflection;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Bauble.Common.Properties;
 
 namespace Bauble.Common.Settings
@@ -60,7 +62,8 @@ namespace Bauble.Common.Settings
 
             LoadAddIns();
             LoadThemes();
-            LoadButtonsFromXml();
+            //LoadButtonsFromXml();
+            LoadButtonsFromJson();
 
             IconFlows = new List<IIconFlow>();
             foreach (var iconFlow in IconFlowAddIns)
@@ -152,11 +155,22 @@ namespace Bauble.Common.Settings
         #region SaveButtonList
         public void SaveButtonList()
         {
-            XElement[] buttonList = Buttons.Select(b => b.ToXml()).ToArray();
-            XDocument doc = new XDocument(
-                new XElement("buttons", buttonList)
-                );
-            doc.Save("icons.xml");
+
+            //XElement[] buttonList = Buttons.Select(b => b.ToXml()).ToArray();
+            //XDocument doc = new XDocument(
+            //    new XElement("buttons", buttonList)
+            //    );
+            //doc.Save("icons.xml");
+            object[] buttons = Buttons.Select(b => b.ToConfigurationObject()).ToArray();
+            var config = new { Icons = buttons };
+            var json = JsonSerializer.Serialize(
+                config, 
+                new JsonSerializerOptions() { 
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
+                    WriteIndented = true
+                }
+            );
+            System.IO.File.WriteAllText("icons.json", json);
         }
         #endregion SaveButtonList
 
@@ -347,6 +361,50 @@ namespace Bauble.Common.Settings
         }
         #endregion LoadButtonsFromXml
 
+        #region LoadButtonsFromJson
+
+        /// <summary>
+        /// loads the configured icons from the XML settings file
+        /// </summary>
+        private void LoadButtonsFromJson()
+        {
+            Buttons = new List<IBaubleButton>();
+            try
+            {
+                using (var stream = System.IO.File.OpenRead("Icons.json"))
+                {
+                    JsonDocument doc = JsonDocument.Parse(stream);
+
+                    var jsonRoot = doc.RootElement;
+
+                    var icons = jsonRoot.GetProperty("icons");
+                    foreach (JsonElement icon in icons.EnumerateArray())
+                    {
+                        LoadButton(icon);
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+            }
+            // if the icons.xml wasn't found or had no button definitions in it
+            if (this.Buttons.Count == 0)
+            {
+                // add a configure button so that the dock has something
+                LoadButton(
+                    new XElement("button",
+                        new Object[]
+                        {
+                            new XAttribute("type", "Bauble.Buttons.Configure"),
+                            new XElement("Text", "Configure")
+                        }
+                    )
+                );
+            }
+
+        }
+        #endregion LoadButtonsFromJson
+
         #region LoadButton
         private IBaubleButton LoadButton(XElement element)
         {
@@ -384,6 +442,44 @@ namespace Bauble.Common.Settings
             }
             return button;
         }
+
+        private IBaubleButton LoadButton(JsonElement element)
+        {
+            string typeName = element.GetProperty("type").GetString();
+
+            IBaubleButton button = null;
+            var buttonType = ButtonAddIns.FirstOrDefault(
+                bt => bt.FullName == typeName
+            );
+            if (buttonType != null)
+            {
+                try
+                {
+                    button = CreateButton(buttonType);
+
+                    button.LoadFromJson(element);
+
+                    button.Initialize(Theme);
+
+                    Animator.SetButtonDoubleAnimation(
+                        button as FrameworkElement,
+                        System.Windows.Media.Animation.EasingMode.EaseInOut,
+                        SharedEvents.ActivatedEvent,
+                        100,
+                        new string[] { "Width", "Height" });
+
+
+
+                    Buttons.Add(button);
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return button;
+        }
+
         #endregion LoadButton
 
         #region CreateButton()

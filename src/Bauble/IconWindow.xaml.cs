@@ -41,6 +41,7 @@ using Bauble.Common.Interop;
 using Bauble.Common.Settings;
 using Bauble.Common.Events;
 using System.Diagnostics;
+using TsudaKageyu;
 
 namespace Bauble
 {
@@ -48,7 +49,7 @@ namespace Bauble
     /// Interaction logic for IconWindow.xaml
     /// </summary>  
     public partial class IconWindow : Window
-    {        
+    {
         #region Constuructor
         public IconWindow()
         {
@@ -104,20 +105,74 @@ namespace Bauble
         {
             //TODO : We could make it so you are able to add multiple icons at the same time 
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            FileInfo fileInfo = new FileInfo(files[0]);
-            //Create the image of the Icon
-            System.Drawing.Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(files[0]);
-            //Create the name that this icon image is going to be stored under
-            var newIconImageName = fileInfo.Name.Replace(fileInfo.Extension.ToString(), "") + ".png";
+            string filename = files[0];
             string startupPath = Environment.CurrentDirectory;
-            
-            if (!File.Exists(startupPath + "\\icons\\" + newIconImageName))
+            System.Drawing.Icon icon = null;
+            string newIconImageName = string.Empty;
+            FileInfo fileInfo = null;
+            string workingDirectory = string.Empty;
+            string text = string.Empty;
+            IconExtractor ie = null;
+            //if (files[0].ToLower().EndsWith("lnk"))
+            //{
+            //    var link = Lnk.Lnk.LoadFile(filename);
+            //    fileInfo = new FileInfo(link.LocalPath);
+            //    filename = fileInfo.Name;
+            //    workingDirectory = link.WorkingDirectory;
+            //    text = link.Name;
+            //    string iconFile = link.IconLocation;
+            //    if (!string.IsNullOrWhiteSpace(iconFile))
+            //    {
+            //        int iconIndex = link.Header.IconIndex;
+            //        iconFile = Environment.ExpandEnvironmentVariables(iconFile);
+                    
+            //        if (!string.IsNullOrWhiteSpace(iconFile))
+            //        {
+            //            ie = new IconExtractor(iconFile);
+            //            icon = ie.GetIcon(iconIndex);
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        icon = System.Drawing.Icon.ExtractAssociatedIcon(link.IconLocation);
+            //    }
+            //}
+            //else
+            //{
+            //    if (File.Exists(files[0]))
+            //    {
+                    fileInfo = new FileInfo(files[0]);
+                    filename = fileInfo.Name;
+                    text = fileInfo.Name;
+
+                    //Create the image of the Icon
+                    icon = System.Drawing.Icon.ExtractAssociatedIcon(files[0]);
+            //    } 
+            //    else if (Directory.Exists(files[0]))
+            //    {
+            //        newIconImageName = "folder.png";
+            //    }
+            //}
+
+            if (icon != null && fileInfo != null)
             {
-                icon.ToBitmap().Save(startupPath + "\\icons\\" + newIconImageName);
+                //Create the name that this icon image is going to be stored under
+                newIconImageName = fileInfo.Name.Replace(fileInfo.Extension.ToString(), "") + ".png";
+                if (!File.Exists(startupPath + "\\icons\\" + newIconImageName))
+                {
+                    IconUtil.ToBitmap(icon).Save(startupPath + "\\icons\\" + newIconImageName);
+
+                    var icons = ie.GetAllIcons();
+                    for(int i = 0; i < icons.Length; i++)
+                    {
+                        IconUtil.ToBitmap(icons[i]).Save(startupPath + "\\icons\\imageres\\" + i.ToString() + ".png");
+                    }
+                }
             }
 
             // instantiate a new shortcut object temporarily with enough information to generate an XML fragment
-            var button = new Bauble.Buttons.Shortcut("icons/" + newIconImageName, fileInfo.Name, files[0]) as IBaubleButton;
+            var button = new Bauble.Buttons.Shortcut("icons/" + newIconImageName, text, filename, workingDirectory) as IBaubleButton;
             // have the settings object create a fully instantiated button object
             button = _settings.AddShortcut(button);
             // load the button onto the current dock
@@ -179,31 +234,33 @@ namespace Bauble
         #region Window_MouseLeave
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (!e.Handled)
-            {
-                var position = e.GetPosition(DisplayGrid);
-                Debug.WriteLine("Mouse Leave for {0}  = X: {1}/{3} Y: {2}/{4}",
-                     sender.GetType(),
-                     position.X, position.Y,
-                     DisplayGrid.ActualWidth, DisplayGrid.ActualHeight);
-                e.Handled = true;
-                mouseOver = false;
-                
-                if (
-                        (position.X < 10) ||
-                        (position.X > DisplayGrid.ActualWidth - 10) ||
-                        (position.Y < 10) ||
-                        (position.Y > DisplayGrid.ActualHeight - 10)
-                    )
+            Dispatcher.Invoke(() => {
+                if (!e.Handled)
                 {
-                    if (_settings.AutoHideDock)
+                    var position = e.GetPosition(DisplayGrid);
+                    Debug.WriteLine("Mouse Leave for {0}  = X: {1}/{3} Y: {2}/{4}",
+                         sender.GetType(),
+                         position.X, position.Y,
+                         DisplayGrid.ActualWidth, DisplayGrid.ActualHeight);
+                    e.Handled = true;
+                    mouseOver = false;
+
+                    if (
+                            (position.X < 10) ||
+                            (position.X > DisplayGrid.ActualWidth - 10) ||
+                            (position.Y < 10) ||
+                            (position.Y > DisplayGrid.ActualHeight - 10)
+                        )
                     {
-                        //MouseOverTrap.Background = Brushes.Blue;
-                        _hideTimer.Enabled = true;
-                        _showTimer.Enabled = false;
+                        if (_settings.AutoHideDock)
+                        {
+                            //MouseOverTrap.Background = Brushes.Blue;
+                            _hideTimer.Enabled = true;
+                            _showTimer.Enabled = false;
+                        }
                     }
                 }
-            }
+            });
         }
         #endregion Window_MouseLeave
 
@@ -346,7 +403,6 @@ namespace Bauble
             dse.Opacity = 0.25;
             dse.Direction = 270;
             fe.Effect = dse;
-
 
             if (buttonNumber > DisplayGrid.ColumnDefinitions.Count)
             {

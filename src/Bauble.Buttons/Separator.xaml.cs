@@ -82,6 +82,11 @@ namespace Bauble.Buttons
         {
         }
 
+        void IBaubleButton.LoadFromJson(System.Text.Json.JsonElement json)
+        {
+
+        }
+
         string IBaubleButton.Text
         {
             get
@@ -96,6 +101,11 @@ namespace Bauble.Buttons
         XElement IBaubleButton.ToXml()
         {
             return new XElement("Icon", new XAttribute("type", this.GetType().FullName));
+        }
+
+        Object IBaubleButton.ToConfigurationObject()
+        {
+            return new { Type = this.GetType().FullName };
         }
 
         private RoutedEventHandler _activated;

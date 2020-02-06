@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -239,6 +240,11 @@ namespace Bauble.Buttons
             Text = element.Element("Text").Value;
         }
 
+        void IBaubleButton.LoadFromJson(System.Text.Json.JsonElement json)
+        {
+            Text = json.GetProperty("text").GetString();
+        }
+
         string IBaubleButton.Text
         {
             get
@@ -252,6 +258,14 @@ namespace Bauble.Buttons
         {
             return new XElement("Icon", new XAttribute("type", this.GetType().FullName),
                         new XElement("Text", Text));
+        }
+
+        Object IBaubleButton.ToConfigurationObject()
+        {
+            return new { 
+                Type = this.GetType().FullName, 
+                Text = Text
+            };
         }
 
         private RoutedEventHandler _activated;

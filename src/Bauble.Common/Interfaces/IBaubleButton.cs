@@ -23,6 +23,7 @@ using System.Text;
 using System.Windows;
 using Bauble.Common.Themes;
 using System.Xml.Linq;
+using System.Text.Json;
 
 namespace Bauble.Common.Interfaces
 {
@@ -41,7 +42,9 @@ namespace Bauble.Common.Interfaces
         void Configure();
         void Initialize(Theme theme);
         void LoadFromXml(string Xml);
+        void LoadFromJson(JsonElement json);
         XElement ToXml();
+        Object ToConfigurationObject();
         
     }
 }
